@@ -10,10 +10,11 @@ r = redis.Redis(host="redis", port=6379)
 # Connect to PostgreSQL
 conn = psycopg2.connect(
     host="db",
-    database="postgres",
-    user="postgres",
-    password="mysecretpassword"
+    database="database",  # Matches POSTGRES_DB in docker-compose
+    user="user",          # Matches POSTGRES_USER in docker-compose
+    password="password"    # Matches POSTGRES_PASSWORD in docker-compose
 )
+
 cur = conn.cursor()
 
 # Create the 'hits' table if it doesn't exist
