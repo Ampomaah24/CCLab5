@@ -7,7 +7,7 @@ services:
       - "5000:5000"
     environment:
       - REDIS_URL=redis://redis:6379
-      - DATABASE_URL=postgres://root:root@db:5432/postgres_db
+      - DATABASE_URL=postgres://user:password@db:5432/database
     depends_on:
       - redis
       - db
@@ -18,23 +18,14 @@ services:
       - "6379:6379"
 
   db:
-    container_name: postgres_container  # This must be properly formatted as key: value
-    image: "postgres"
-    restart: always
+    image: "postgres:13-alpine"
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=postgres_db
-    ports:
-      - "5432:5432"
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=database
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
-  pgadmin:
-    container_name: pgadmin4_container  # Same here, ensure key: value format
-    image: dpage/pgadmin4
-    restart: always
-    environment: 
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com 
-      - PGADMIN_DEFAULT_PASSWORD=root
-    ports:
-      - "5050:80"
+volumes:
+  db-data:
 
