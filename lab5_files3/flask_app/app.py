@@ -42,7 +42,7 @@ def home():
     postgres_count = cur.fetchone()[0]
 
      return f"This page has been run {count} times via Redis and {postgres_count} times in PostgreSQL."
-
+    
 
 
 if __name__ == "__main__":
